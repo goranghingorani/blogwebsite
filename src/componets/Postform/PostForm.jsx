@@ -101,7 +101,7 @@ function PostForm({ post }) {
           className="content"
         />
       </div>
-      <div className="content1 w-1/3 px-1">
+      <div className="content1 w-1/3 px-2">
         <Input
           label="FeaturedImage:"
           type="file"
