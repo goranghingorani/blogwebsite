@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import authservice from "../appwrite/auth";
 import "../App.css";
 import service from "../appwrite/config";
-import { Input } from ".././componets/index.js";
+import { Input, Button } from ".././componets/index.js";
 import { useForm } from "react-hook-form";
 
 function Profile() {
@@ -22,6 +22,14 @@ function Profile() {
     }
   };
 
+  const updateprofile = async () => {
+    const deletefile = await service.deletefile(fileId);
+
+    if (deletefile) {
+      setprofilephoto(null);
+    }
+  };
+
   useEffect(() => {
     const infopromise = authservice.getCurrentUser();
     infopromise.then(
@@ -36,7 +44,7 @@ function Profile() {
 
   return (
     <div className="profileflex h-screen flex items-center justify-evenly">
-      <div className="flex justify-center items-center">
+      <div className="flex flex-col gap-4 justify-center items-center">
         <div className="w-80 h-80 rounded-full bg-gray-100">
           {profilephoto ? (
             <img
@@ -54,11 +62,16 @@ function Profile() {
                   accept="image/png, image/jpg, image/jpeg, image/gif"
                   {...register("image")}
                 />
-                <button type="submit">ADD</button>
+                <Button type="submit">ADD</Button>
               </form>
             </div>
           )}
         </div>
+        {profilephoto && (
+          <div className="flex gap-4">
+            <Button onClick={updateprofile}>Update</Button>
+          </div>
+        )}
       </div>
       <div className="flex justify-center items-center">
         <div>
