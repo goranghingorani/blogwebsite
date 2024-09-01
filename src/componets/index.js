@@ -13,6 +13,7 @@ import Button from '../componets/Button.jsx'
 import Input from "./Input.jsx"
 import Select from './Select.jsx'
 import Slider from "./Slide.jsx"
+import Profile from "../pages/Profile.jsx"
 
 
 export {
@@ -30,5 +31,6 @@ export {
     Button,
     Input,
     Select,
-    Slider
+    Slider,
+    Profile
 }

@@ -76,4 +76,14 @@
   .content1{
     margin-top: 20px;
   }
+  .profileimg{
+    width: 180px !important;
+    height: 180px !important;
+  }
+  .profileflex{
+    flex-direction: column !important;
+  }
+  .profileflex1{
+    align-content: flex-start !important;
+  }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Logo, LogoutBtn, Container } from "../index";
+import { Logo, LogoutBtn, Container, Profile } from "../index";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -38,6 +38,11 @@ function Header() {
     {
       name: "Add Post",
       slug: "/add-post",
+      active: authStatus,
+    },
+    {
+      name: "Profile",
+      slug: "/profile",
       active: authStatus,
     },
   ];
