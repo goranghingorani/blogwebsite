@@ -34,11 +34,6 @@ function Login() {
       <div
         className={`goru3 mx-auto w-full my-8 max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
       >
-        <div className="mb-2 flex justify-center">
-          <span className="inline-block w-full max-w-[100px]">
-            <Logo width="100%" />
-          </span>
-        </div>
         <h2 className="text-center text-2xl font-bold leading-tight">
           Sign in to your account
         </h2>
@@ -76,7 +71,7 @@ function Login() {
                 required: true,
               })}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full border-2 hover:bg-gray-400">
               Sign in
             </Button>
           </div>
