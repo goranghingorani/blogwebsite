@@ -6,17 +6,24 @@ import { Input, Button } from ".././componets/index.js";
 import { useForm } from "react-hook-form";
 
 function Profile() {
-  // const authStatus = useSelector((state) => state.auth.status);
+  const [userdata, setuserdata] = useState(null);
+  const [fileId, setfileId] = useState(null);
 
-  const [userdata, setuserdata] = useState();
-  const [profilephoto, setprofilephoto] = useState();
-  const [fileId, setfileId] = useState();
+  useEffect(() => {
+    const filedata = JSON.parse(window.localStorage.getItem("file"));
+    if (filedata !== null) {
+      setfileId(filedata);
+    }
+  }, []);
 
-  const { register, handleSubmit, setValue, getValues } = useForm();
+  useEffect(() => {
+    window.localStorage.setItem("file", JSON.stringify(fileId));
+  }, [fileId]);
+
+  const { register, handleSubmit } = useForm();
 
   const submit = async (data) => {
     const file = await service.uploadFile(data.image[0]);
-    setprofilephoto(data.image[0]);
     if (file) {
       setfileId(file.$id);
     }
@@ -24,9 +31,8 @@ function Profile() {
 
   const updateprofile = async () => {
     const deletefile = await service.deletefile(fileId);
-
     if (deletefile) {
-      setprofilephoto(null);
+      setfileId(null);
     }
   };
 
@@ -46,7 +52,7 @@ function Profile() {
     <div className="profileflex h-screen flex items-center justify-evenly">
       <div className="flex flex-col gap-4 justify-center items-center">
         <div className="w-80 h-80 rounded-full bg-gray-100">
-          {profilephoto ? (
+          {fileId ? (
             <img
               src={service.getfilepreview(fileId)}
               className="w-80 h-80 rounded-full bg-gray-100 p-0"
@@ -67,7 +73,7 @@ function Profile() {
             </div>
           )}
         </div>
-        {profilephoto && (
+        {fileId && (
           <div className="flex gap-4">
             <Button onClick={updateprofile}>Update</Button>
           </div>
@@ -97,29 +103,3 @@ function Profile() {
 }
 
 export default Profile;
-
-{
-  /* <Input
-  label="FeaturedImage:"
-  type="file"
-  className="mb-4"
-  accept="image/png, image/jpg, image/jpeg, image/gif"
-  {...register("image", { required: !post })}
-/>; */
-}
-
-{
-  /* <img
-src="https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w1200/2023/10/free-images.jpg"
-className=" profileimg w-80 h-80 rounded-full border-4 border-black"
-alt=""
-/> */
-}
-
-//  <Input
-//   label="FeaturedImage:"
-//   type="file"
-//   className="mb-4"
-//   accept="image/png, image/jpg, image/jpeg, image/gif"
-//   {...register("image", { required: !post })}
-// />;
