@@ -1,5 +1,13 @@
 import conf from "../conf/conf";
 import {Client,ID,Databases,Query,Storage} from "appwrite"
+import authservice from "./auth";
+import { useState } from "react";
+
+
+// const userdata = useSelector((state) => state.auth.userdata);
+
+// console.log(user);
+
 
 export class Services{
     client =  new Client();
@@ -78,12 +86,33 @@ export class Services{
         }
     }
 
-    async getPosts(queries = [Query.equal("status","active")]){
+    async getCurrentUserId(){
         try {
+           const user =  await authservice.getCurrentUser();
+           console.log(user.$id);
+        //    userinfo.then(
+        //     function(res){
+        //         userid = res.$id
+        //     },
+        //     function(err){
+        //         console.log(err);
+        //     }
+        //    )
+           return user.$id;
+        } catch (error) {
+            console.log("appwrite service :: currentuser :: error",error)
+        }
+    }
+
+    async getPosts(){
+        try {
+            const userId = await this.getCurrentUserId();
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                queries
+               [
+                    Query.equal("userId",userId)
+                ],
             )
         } catch (error) {
             console.log("appwrite service :: getpost :: error",error);
