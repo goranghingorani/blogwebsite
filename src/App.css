@@ -86,4 +86,11 @@
   .profileflex1{
     align-content: flex-start !important;
   }
+  .postcardimg{
+    height: 80px !important;
+    width: 80px !important;
+  }
+  .postcard{
+    width: 80px !important;
+  }
 }
